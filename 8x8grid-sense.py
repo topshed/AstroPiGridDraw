@@ -8,7 +8,11 @@ from pygame.locals import *
 from led import LED
 from buttons import Button
 import png # pypng
-#from sense_hat import SenseHat
+try:
+	from sense_hat import SenseHat
+	shLoaded = True
+except ImportError:
+	shLoaded = False
 import copy, time
 
 saved = True
@@ -16,7 +20,9 @@ warning = False
 pygame.init()
 pygame.font.init()
 
-#sh=SenseHat()
+if shLoaded:
+	sh=SenseHat()
+
 screen = pygame.display.set_mode((530, 395), 0, 32)
 pygame.display.set_caption('Sense HAT Grid Editor')
 pygame.mouse.set_visible(1)
@@ -108,7 +114,8 @@ def buildGrid(): # Takes a grid and builds versions for exporting (png and text)
 
 def piLoad(): # Loads image onto SenseHAT matrix
 	grid, grid_png = buildGrid()
-	#sh.set_pixels(grid)
+	if shLoaded:
+		sh.set_pixels(grid)
 
 def exportGrid(): # Writes png to file
 
@@ -132,7 +139,8 @@ def rotate(): #Rotates image on SenseHAT LED matrix
 		rotation = 0
 	else:
 		rotation = rotation + 90
-	#sh.set_rotation(rotation)
+	if shLoaded:
+		sh.set_rotation(rotation)
 
 
 

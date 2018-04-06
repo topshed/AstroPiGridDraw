@@ -381,44 +381,46 @@ def importAni():
         line_count = sum(1 for _ in ll)
     ll.close()
 
+# start of actual good code
+
     #animation = {}
     frame_number = 1
     file = open('animation8x8.py')
-    for r in range(4):
-        file.readline()
-
-    for frame  in range(line_count-8):
+    for r in range(line_count):
         buff = file.readline()
+        if (buff[:2] == '[['):
+            load_frame = buff.split('], [')
+            counter = 1
+            leds =[]
+            for f in load_frame:
 
-        load_frame = buff.split('], [')
-        counter = 1
-        leds =[]
-        for f in load_frame:
+                if counter == 1:
+                    f = f[2:]
+                elif counter == 64:
 
-            if counter == 1:
-                f = f[2:]
-            elif counter == 64:
+                    f = f[:-4]
 
-                f = f[:-4]
+                y = int((counter-1)/8)
+                x = int((counter-1)%8)
 
-            y = int((counter-1)/8)
-            x = int((counter-1)%8)
+                #print(str(counter) + ' ' + f + ' x= ' + str(x) + ' y= ' + str(y))
+                led = LED(radius=20,pos=(x, y))
+                if f == '0, 0, 0':
+                    led.lit = False
 
-            #print(str(counter) + ' ' + f + ' x= ' + str(x) + ' y= ' + str(y))
-            led = LED(radius=20,pos=(x, y))
-            if f == '0, 0, 0':
-                led.lit = False
-
-            else:
-                led.lit = True
-                f_colours = f.split(',')
-                #print(f_colours)
-                led.color = [int(f_colours[0]),int(f_colours[1]),int(f_colours[2])]
-            leds.append(led)
+                else:
+                    led.lit = True
+                    f_colours = f.split(',')
+                    #print(f_colours)
+                    led.color = [int(f_colours[0]),int(f_colours[1]),int(f_colours[2])]
+                leds.append(led)
+                counter+=1
+            animation[frame_number] = copy.deepcopy(leds)
+            frame_number+=1
             counter+=1
-        animation[frame_number] = copy.deepcopy(leds)
-        frame_number+=1
-        counter+=1
+
+
+##### end of actual good code
 
     file.close()
     #drawEverything()

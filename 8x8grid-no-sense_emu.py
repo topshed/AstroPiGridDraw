@@ -8,7 +8,9 @@ from pygame.locals import *
 from led import LED
 from buttons import Button
 import png # pypng
-from sense_hat import SenseHat
+
+from sense_emu import SenseHat
+
 import copy, time
 
 saved = True
@@ -109,6 +111,7 @@ def buildGrid(): # Takes a grid and builds versions for exporting (png and text)
 def piLoad(): # Loads image onto SenseHAT matrix
     grid, grid_png = buildGrid()
     sh.set_pixels(grid)
+
 
 def exportGrid(): # Writes png to file
 
@@ -321,7 +324,7 @@ def exportAni():
 
     global saved
     FILE=open('animation8x8.py','w')
-    FILE.write('from sense_hat import SenseHat\n')
+    FILE.write('from sense_emu import SenseHat\n')
     FILE.write('import time\n')
     FILE.write('sh=SenseHat()\n')
     FILE.write('FRAMES = [\n')
@@ -422,6 +425,8 @@ def importAni():
 
 ##### end of actual good code
 
+
+
     file.close()
     #drawEverything()
 
@@ -448,7 +453,7 @@ buttons.append(FasterButton)
 SlowerButton = Button('-', action=slower, size=(40,30), pos=(315, 5), color=(184,138,0))
 buttons.append(SlowerButton)
 
-PlayButton = Button('Play on LEDs', action=play,  pos=(425, 340), color=(184,138,0))
+PlayButton = Button('Play on EMU', action=play,  pos=(425, 340), color=(184,138,0))
 buttons.append(PlayButton)
 
 RedButton = Button('', action=setColourRed, size=(50,30), pos=(365, 10),hilight=(0, 200, 200),color=(255,0,0))

@@ -2,6 +2,8 @@
 
 These Python Pygame applications are for creating 8x8 pixel images and animations for loading onto either a Raspberry Pi [Sense HAT] (https://www.raspberrypi.org/blog/buy-the-sense-hat-as-seen-in-space/) (as used on the Astro Pi), [UnicornHat] (http://shop.pimoroni.com/products/unicorn-hat) or [UnicornPHAT] (https://shop.pimoroni.com/products/unicorn-phat) LED matrix.
 
+If no SenseHat or UnicronHat/pHat detected then defaults to SenseHat Emulator.
+
 ![alt tag](https://raw.githubusercontent.com/topshed/RPi_8x8GridDraw/master/GUI.png)
 
 It offers a choice of several colours for the LEDs:
